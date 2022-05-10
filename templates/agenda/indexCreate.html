@@ -1,0 +1,191 @@
+{% load static%}
+{%load i18n%}
+{% load account socialaccount %}
+{% load crispy_forms_tags %}
+<!DOCTYPE html>
+<html style="font-size: 16px;">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="page_type" content="np-template-header-footer-from-plugin">
+    <title>Login</title>
+    <link rel="stylesheet" href="{% static 'css/nicepagelogin.css' %}" media="screen">
+    <link rel="stylesheet" href="{% static 'css/servico.css' %}" media="screen">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <script class="u-script" type="text/javascript" src="{% static 'js/jquery.js' %}" defer=""></script>
+    <script class="u-script" type="text/javascript" src="{% static 'js/nicepage.js' %}" defer=""></script>
+    <meta name="generator" content="Nicepage 4.8.2, nicepage.com">
+    <link id="u-theme-google-font" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i|Open+Sans:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i">
+    <link id="u-page-google-font" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lobster:400">
+    
+    
+    <script type="application/ld+json">{
+		"@context": "http://schema.org",
+		"@type": "Organization",
+		"name": ""
+}</script>
+    <meta name="theme-color" content="#478ac9">
+    <meta property="og:title" content="Login">
+    <meta property="og:type" content="website">
+  </head>
+  <body class="u-body u-xl-mode"><header class="u-clearfix u-header u-header" id="sec-1d88"><div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
+        <nav class="u-menu u-menu-dropdown u-offcanvas u-menu-1">
+          <div class="menu-collapse" style="font-size: 1rem; letter-spacing: 0px;">
+            <a class="u-button-style u-custom-left-right-menu-spacing u-custom-padding-bottom u-custom-text-active-color u-custom-text-hover-color u-custom-top-bottom-menu-spacing u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" href="#">
+              <svg class="u-svg-link" viewBox="0 0 24 24"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#menu-hamburger"></use></svg>
+              <svg class="u-svg-content" version="1.1" id="menu-hamburger" viewBox="0 0 16 16" x="0px" y="0px" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg"><g><rect y="1" width="16" height="2"></rect><rect y="7" width="16" height="2"></rect><rect y="13" width="16" height="2"></rect>
+</g></svg>
+            </a>
+          </div>
+          <div class="u-custom-menu u-nav-container">
+            <ul class="u-nav u-unstyled u-nav-1"><li class="u-nav-item"><a class="u-button-style u-nav-link u-text-active-black u-text-hover-palette-1-base" href="{% url 'account_logout' %}" style="padding: 10px 20px;">Sair</a>
+</li></ul>
+          </div>
+          <div class="u-custom-menu u-nav-container-collapse">
+            <div class="u-black u-container-style u-inner-container-layout u-opacity u-opacity-95 u-sidenav">
+              <div class="u-inner-container-layout u-sidenav-overflow">
+                <div class="u-menu-close"></div>
+                <ul class="u-align-center u-nav u-popupmenu-items u-unstyled u-nav-2"><li class="u-nav-item"><a class="u-button-style u-nav-link" href="{% url 'account_logout' %}">Sair</a>
+</li></ul>
+              </div>
+            </div>
+            <div class="u-black u-menu-overlay u-opacity u-opacity-70"></div>
+          </div>
+        </nav>
+        <div class="u-container-style u-group u-shape-rectangle u-group-1">
+          <div class="u-container-layout">
+            <p class="u-custom-font u-font-lobster u-text u-text-1">Fashion Hair</p>
+          </div>
+        </div>
+      </div></header>    
+      
+
+      {% block container %}
+          <a class="btn btn-success" href="create"> <span class="glyphicon glyphicon-add"></span>Novo Agendamento</a>
+          <a class="btn btn-success" href="../servico"> <span class="glyphicon glyphicon-add"></span>Serviços</a>
+          <br/>
+          <br/>
+          <div class="table-responsive">
+              <table class="table">
+                  <thead>
+                  <tr>
+                      <th class="text-center"></th>
+                      <th>Data</th>
+                      <th>Hora</th>
+                      <th>Cabeleireiro</th>
+                      <th>Serviços</th>
+                      <!-- <th>Produtos</th> -->
+                    <th>Opções</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  {% for agenda in agendamentos %}
+                      {% if agenda.clientes.id == user.cliente.id or agenda.cabeleireiros.id == user.cabeleireiro.id %}
+                          <tr>
+                              <td> {{''}}</td>  
+                              <td>{{ agenda.data }}</td>
+                              <td>{{ agenda.hora_inicio }}</td>
+                              <td>{{ agenda.cabeleireiros.nome}}</td>
+                              <td>{% for servico in agenda.servicos.all %}
+                                  {{ servico.nome }}
+                                  {% endfor %}
+                              </td>
+                              {% if agenda.cabeleireiros.id == user.cabeleireiro.id %}
+                                  <td>{{ agenda.clientes.nome }}</td>
+                              {% endif %}
+                              <td class="td-actions" >
+      {#                            <a href="edit/{{ agenda.id }}" type="button" rel="tooltip" title="Editar" class="btn btn-success btn-link btn-sm">#}
+      {#                                <i class="fa fa-edit"></i>#}
+      {#                            </a>#}
+                                  <button type="button"
+                                          rel="tooltip"
+                                          class="btn btn-danger btn-sm"
+                                          data-toggle="modal"
+                                          data-target="#deleteModal"
+                                          data-pk="{{ agenda.id }}"
+                                          data-name="{{ agenda.data }}">
+                                      <i class="fa fa-times">Excluir</i>
+                                  </button>
+                                  {#                            <a href="deletar/{{ agenda.id }}" type="button" rel="tooltip" title="Remover" class="btn btn-danger btn-link btn-sm">#}
+                                  {#                                <i class="fa fa-times"></i>#}
+                                  {#                            </a>#}
+                              </td>
+                          </tr>
+                      {% endif %}
+                  {% endfor %}
+                  </tbody>
+              </table>
+          </div>
+          {#    div para excluir#}
+          <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel"
+               aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                      <div class="modal-header">
+                          <h5 class="modal-title" id="deleteModalLabel"></h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                          </button>
+                      </div>
+                      <div class="modal-body">
+                          <form method="post" id="formDelete">{% csrf_token %}
+                              <p>Deseja excluir o agendamento do cliente?</p>
+                              {#                        <input type="submit" value="Confirm">#}
+                          </form>
+                      </div>
+                      <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                          <button onclick="$('#formDelete').submit()" type="button" class="btn btn-danger">Excluir</button>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      {% endblock %}
+
+      {% block javascripts %}
+      <script>
+          $('#editModal').on('show.bs.modal', function (event) {
+              var button = $(event.relatedTarget);
+              var pk = button.data('pk');
+              var name = button.data('name');
+              var modal = $(this);
+  
+              $('#editModalLabel').html(name);
+              $('#formEdit').attr("action", "/agenda/edit/" + pk);
+          })
+      </script>
+      <script>
+          $('#deleteModal').on('show.bs.modal', function (event) {
+              var button = $(event.relatedTarget);
+              var pk = button.data('pk');
+              var name = button.data('name');
+  
+              var modal = $(this);
+              $('#deleteModalLabel').html(name);
+              $('#formDelete').attr("action", "/agenda/deletar/" + pk);
+          })
+      </script>
+      <script>
+          $('#detalheModal').on('show.bs.modal', function (event) {
+              var button = $(event.relatedTarget);
+              var pk = button.data('pk');
+              var name = button.data('name');
+              var date = button.data('date');
+              var cab = button.data('cab');
+              var prod = button.data('prod');
+              var hor = button.data('hor');
+              var serv = button.data('serv');
+  
+              var modal = $(this);
+              $('#detalheModalLabel').html(name);
+              $('#detalheModalLabelData').html(date);
+              $('#detalheModalLabelCab').html(cab);
+              $('#detalheModalLabelServ').html(serv);
+              $('#detalheModalLabelHor').html(hor);
+              $('#detalheModalLabelProd').html(prod);
+  
+          })
+      </script>
+  {% endblock %}

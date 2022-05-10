@@ -1,5 +1,6 @@
 {% load static %}
 {% load i18n %}
+{% load account socialaccount %}
 {% load crispy_forms_tags %}
 <!DOCTYPE html>
 <html style="font-size: 16px;">
@@ -9,9 +10,9 @@
     <meta name="keywords" content="">
     <meta name="description" content="">
     <meta name="page_type" content="np-template-header-footer-from-plugin">
-    <title>Cadastro</title>
-    <link rel="stylesheet" href="{% static 'css/nicepagesignup.css' %}" media="screen">
-    <link rel="stylesheet" href="{% static 'css/signup.css' %}" media="screen">
+    <title>Login</title>
+    <link rel="stylesheet" href="{% static 'css/nicepagelogin.css' %}" media="screen">
+    <link rel="stylesheet" href="{% static 'css/servico.css' %}" media="screen">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <script class="u-script" type="text/javascript" src="{% static 'js/jquery.js' %}" defer=""></script>
     <script class="u-script" type="text/javascript" src="{% static 'js/nicepage.js' %}" defer=""></script>
@@ -26,7 +27,7 @@
 		"name": ""
 }</script>
     <meta name="theme-color" content="#478ac9">
-    <meta property="og:title" content="Cadastro">
+    <meta property="og:title" content="Login">
     <meta property="og:type" content="website">
   </head>
   <body class="u-body u-xl-mode"><header class="u-clearfix u-header u-header" id="sec-1d88"><div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
@@ -39,16 +40,14 @@
             </a>
           </div>
           <div class="u-custom-menu u-nav-container">
-            <ul class="u-nav u-unstyled u-nav-1"><li class="u-nav-item"><a class="u-button-style u-nav-link u-text-active-black u-text-hover-palette-1-base" href="{% url 'account_login' %}" style="padding: 10px 20px;">Login</a>
-</li><li class="u-nav-item"><a class="u-button-style u-nav-link u-text-active-black u-text-hover-palette-1-base" href="{% url 'account_signup' %}" style="padding: 10px 20px;">Cadastro</a>
+            <ul class="u-nav u-unstyled u-nav-1"><li class="u-nav-item"><a class="u-button-style u-nav-link u-text-active-black u-text-hover-palette-1-base" href="{% url 'account_logout' %}" style="padding: 10px 20px;">Sair</a>
 </li></ul>
           </div>
           <div class="u-custom-menu u-nav-container-collapse">
             <div class="u-black u-container-style u-inner-container-layout u-opacity u-opacity-95 u-sidenav">
               <div class="u-inner-container-layout u-sidenav-overflow">
                 <div class="u-menu-close"></div>
-                <ul class="u-align-center u-nav u-popupmenu-items u-unstyled u-nav-2"><li class="u-nav-item"><a class="u-button-style u-nav-link" href="{% url 'account_login' %}">Login</a>
-</li><li class="u-nav-item"><a class="u-button-style u-nav-link" href="{% url 'account_signup' %}">Cadastro</a>
+                <ul class="u-align-center u-nav u-popupmenu-items u-unstyled u-nav-2"><li class="u-nav-item"><a class="u-button-style u-nav-link" href="{% url 'account_logout' %}">Sair</a>
 </li></ul>
               </div>
             </div>
@@ -59,17 +58,49 @@
           <div class="u-container-layout">
             <p class="u-custom-font u-font-lobster u-text u-text-1">Fashion Hair</p>
           </div>
+          
         </div>
       </div></header>
-    <section>
-      {% block content %}
-      <h2>Cadastro</h2>
-      <form method="post">
-          {% csrf_token %}
-          {{ form|crispy }}
-          <button class="btn btn-success" type="submit">Cadastrar</button>
-      </form>
-    {% endblock %}
-    </section>
-  </body>
-</html>
+      <span>{{ user.servico }}
+        <b class="caret"></b>
+    </span>
+      {% block container %}
+      <a href="{% url 'pages:indexCreate' %}"class="btn btn-success" href="create"> <span class="glyphicon glyphicon-add"></span>Minha Agenda</a>
+      <br/>
+      <br/>
+      <div class="table-responsive">
+            <table class="table">
+              <thead>
+              <tr>
+                  <th class="text-center"> </th>
+                  <th>Serviço </th>
+                  <th>Valor</th>
+                  <th>Agendamento</th>
+              </tr>
+              </thead>
+              <tbody>
+              {% for servico in servicos %}
+                  <tr>
+                      <td>{{ servico.id }}</td>
+                      <td>{{ servico.nome }}</td>
+                      <td>{{ servico.valor }}</td>
+                      <td class="td-actions" >
+                                <button type="button"
+                                      rel="tooltip"
+                                      class="btn btn-success btn-sm" 
+                                      data-toggle="modal"
+                                      data-target="#editModal"
+                                      data-pk="{{ servico.id }}"
+                                      data-name="{{ servico.nome }}">
+                                  <a class="fa fa-edit" href = "{% url 'pages:create' %}"style="color:white">Agendar</a>
+                                </button>
+                              </td>
+                        </div>
+                      </div>
+                  </tr>
+                  </div>
+              {% endfor %}
+              </tbody>
+          </table>
+      </div>
+  {% endblock %}

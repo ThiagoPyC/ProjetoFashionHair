@@ -1,0 +1,16 @@
+.grid{
+    display: grid;
+    grid-template-columns: 10fr 10fr 10fr;
+    margin: 0px;
+    padding: 0px;
+    grid-template-rows: 0fr 0fr 1fr;
+    grid-template-areas: "h h h"
+                         "a m m"
+                         "f f f"
+}
+
+.card {
+    margin: 0px;
+    padding: 0px;
+}
+

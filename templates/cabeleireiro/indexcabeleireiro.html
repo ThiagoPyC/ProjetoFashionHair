@@ -1,0 +1,60 @@
+{% block container %}
+    <a class="btn btn-success" href="create"> <span class="glyphicon glyphicon-add"></span>Novo cabeleireiro</a>
+    <br/>
+    <br/>
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+            <tr>
+                <th class="text-center">#</th>
+                <th>Nome </th>
+                <th>E-mail</th>
+                <th>Celular</th>
+                <th>Opções</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for cabeleireiro in cabeleireiros %}
+                <tr>
+                    <td>{{ cabeleireiro.id }}</td>
+                    <td>{{ cabeleireiro.nome }}</td>
+                    <td>{{ cabeleireiro.email }}</td>
+                    <td>{{ cabeleireiro.celular }}</td>
+                    <td class="td-actions" >
+                        <button type="button"
+                                rel="tooltip"
+                                class="btn btn-info btn-sm"
+                                data-toggle="modal"
+                                data-target="#detalheModal"
+                                data-pk="{{ cabeleireiro.id }}"
+                                data-name="{{ cabeleireiro.nome }}"
+                                data-nick="{{ cabeleireiro.apelido }}"
+                                data-email="{{ cabeleireiro.email }}"
+                                data-tel="{{ cabeleireiro.celular }}">
+                            <i class="fa fa-user"></i>
+                        </button>
+                        <button type="button"
+                                rel="tooltip"
+                                class="btn btn-success btn-sm"
+                                data-toggle="modal"
+                                data-target="#editModal"
+                                data-pk="{{ cabeleireiro.id }}"
+                                data-name="{{ cabeleireiro.nome }}">
+                            <i class="fa fa-edit"></i>
+                        </button>
+                        <button type="button"
+                                rel="tooltip"
+                                class="btn btn-danger btn-sm"
+                                data-toggle="modal"
+                                data-target="#deleteModal"
+                                data-pk="{{ cabeleireiro.pk }}"
+                                data-name="{{ cabeleireiro.nome }}">
+                            <i class="fa fa-times"></i>
+                        </button>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
