@@ -44,6 +44,7 @@ class agendamento(models.Model):
     data = models.DateField("data", help_text="Please use the following format: <em>YYYY-MM-DD</em>.")
     hora_inicio = models.TimeField("hora_inicio")
     hora_fim = models.TimeField("hora_fim")
+    #url = models.URLField("url", null=True,blank=True,max_length=500)
     clientes = models.ForeignKey(
         cliente,
 		related_name='clientes',

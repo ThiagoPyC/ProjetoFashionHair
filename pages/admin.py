@@ -21,6 +21,6 @@ class CabelereiroAdmin(admin.ModelAdmin):
 
 @admin.register(agendamento)
 class AgendamentoAdmin(admin.ModelAdmin):
-    list_display = ['status', 'data', 'hora_inicio', 'hora_fim', 'cabeleireiros']
-    search_fields = ['status', 'data', 'hora_inicio', 'hora_fim','cabeleireiros']
+    list_display = ['clientes','data', 'hora_inicio', 'hora_fim', 'cabeleireiros']
+    search_fields = ['clientes','data', 'hora_inicio', 'hora_fim','cabeleireiros']
 

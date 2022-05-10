@@ -73,7 +73,6 @@ def createCliente(request):
         clientes.user = new_user
         clientes.email = email
         clientes.senha = password
-        clientes.apelido = username
         clientes.nome = request.POST['nome']
         clientes.celular =  request.POST['celular']
         clientes.save()
@@ -139,6 +138,7 @@ def createAgenda(request):
             clientes = cliente.objects.all()
             servicos = servico.objects.all()
             cabeleireiros = cabeleireiro.objects.all()
+            context = {'clientes': clientes, 'servicos' : servicos,'cabeleireiros' : cabeleireiros}
             return HttpResponseRedirect('/agenda')
     else:
         clientes = cliente.objects.all()

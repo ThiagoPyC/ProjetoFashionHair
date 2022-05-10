@@ -1,39 +1,62 @@
+{% load static %}
+<!doctype html>
+<html lang="py-br">
+    <head>
+        <link href="{% static 'css/signin.css' %}" rel="stylesheet">
+        <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+        <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/sign-in/">
+        <link rel="stylesheet" href="{% static 'css/nicepage.css' %}" media="screen">
+        <link rel="stylesheet" href="{% static 'css/home.css' %}" media="screen">
+        <script class="u-script" type="text/javascript" src="{% static 'js/jquery.js' %}" defer=""></script>
+        <script class="u-script" type="text/javascript" src="{% static 'js/nicepage.js' %}" defer=""></script>
+        <meta name="generator" content="Nicepage 4.8.2, nicepage.com">
+        <link id="u-theme-google-font" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i|Open+Sans:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i">
+
+    </head>
+    
+    <body class="text-center">
+
 {% block content %}
     <div class="login-box">
+        <div class="u-container-layout">
+            <img src="{% static 'imagem/Logo02.png' %}">
+          </div>
         <h1>Cadastrar</h1>
         {{ form.non_field_errors }}
         <form method="post">
             {% csrf_token %}
             <div class="textbox">
                 <i class="fas fa-user"></i>
-                <input type='text' placeholder="Seu Nome" name='nome' id="nome" value='' class='glyphicon glyphicon-pencil'>
+                <input class="form-control" type='fas fa-user' placeholder="Nome" name='nome' id="nome" value='' class='glyphicon glyphicon-pencil'>
             </div>
             <div class="textbox">
                 <i class="fas fa-user"></i>
-                <input type='text' placeholder="Username" name='username' value='' class='glyphicon glyphicon-user'>
+                <input class="form-control" type='text' placeholder="Username" name='username' value='' class='glyphicon glyphicon-user'>
                 {#                {{ form.username }}#}
             </div>
             <div class="textbox">
                 <i class="fas fa-envelope"></i>
-                <input type='text' placeholder="Email" name='email' value='' class='glyphicon glyphicon-user'>
+                <input class="form-control" type='text' placeholder="Email" name='email' value='' class='glyphicon glyphicon-user'>
                 {#                {{ form.email }}#}
             </div>
             <div class="textbox">
                 <i class="fas fa-phone"></i>
-                <input type='text' placeholder="Celular" name='celular' value='' class='glyphicon glyphicon-user'>
+                <input class="form-control" type='text' placeholder="Celular" name='celular' value='' class='glyphicon glyphicon-user'>
                 {#                {{ form.email }}#}
             </div>
             <div class="textbox">
                 <i class="fas fa-lock"></i>
-                <input type='password' placeholder="Password" name='password' value=''>
+                <input class="form-control" type='password' placeholder="Senha" name='password' value=''>
                 {#                {{ form.password1 }}#}
             </div>
             <div class="textbox">
                 <i class="fas fa-lock"></i>
-                <input type='password' placeholder="Confirm Password" name='password2' value=''>
+                <input class="form-control" type='password' placeholder="Confirmar Senha" name='password2' value=''>
                 {#                {{ form.password2 }}#}
             </div>
-            <input class='button btn' type='submit' name='' value='Enviar'>
+            <button class="w-100 btn btn-lg btn-primary" type="submit">Entrar</button>
+            <a href="{% url 'pages:login' %}" class="u-align-center u-custom-font u-text u-text-2"> Já tem uma Conta? Faça Login!</a>
+            <p class="mt-5 mb-3 text-muted">&copy; Fashion Hair</p>
 
         </form>
         {{ form.non_field_errors }}
