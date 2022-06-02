@@ -25,10 +25,13 @@ urlpatterns = [
     # Cabeleireiro
     path('cabeleireiro', views.indexcabeleireiro, name='indexcabeleireiro'),
 
-    # Cliente
-    path('cliente/', views.indexCliente, name='indexcliente'),
-    path('cliente/create', views.createCliente, name='createCliente'),
-    
+    #Deletar
+    path('agenda/deletar/<int:id>', views.deleteAgendamento, name='deleteAgendamento'),
+
+    #DashBoard
+    path('dashboard', views.DashboardView.as_view(), name='dashboard'),
+    path('get-data', views.get_data, name='get-data')
+
 
 
 ]

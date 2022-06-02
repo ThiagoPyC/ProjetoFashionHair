@@ -4,7 +4,6 @@ from .models import (
     servico,
     agendamento,
     cabeleireiro,
-    cliente,
 )
 
 @admin.register(servico)
@@ -21,6 +20,7 @@ class CabelereiroAdmin(admin.ModelAdmin):
 
 @admin.register(agendamento)
 class AgendamentoAdmin(admin.ModelAdmin):
-    list_display = ['clientes','data', 'hora_inicio', 'hora_fim', 'cabeleireiros']
-    search_fields = ['clientes','data', 'hora_inicio', 'hora_fim','cabeleireiros']
+    list_display = ['status', 'clientes','data', 'hora_inicio', 'hora_fim', 'cabeleireiros', 'url']
+    search_fields = ['status','clientes','data', 'hora_inicio', 'hora_fim','cabeleireiros', 'url']
+
 

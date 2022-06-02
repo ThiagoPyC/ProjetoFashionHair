@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     # local
     'pages.apps.PagesConfig',
     'crispy_forms',
+    'anymail',
 ]
 
 MIDDLEWARE = [
@@ -163,3 +164,13 @@ ACCOUNT_AUTHENTICATION_METHOD = "email"
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_UNIQUE_EMAIL = True
 LOGIN_URL = '/login'
+
+"""
+EMAIL_BACKEND = "anynail.backends.mailgun.EmailBackend"
+DEFAULT_FROM_EMAIL = 'no-reply@meusite.com'
+SERVER_EMAIL = DEFAULT_FROM_EMAIL
+ANYMAIL = {
+    'MAILGUN_API_KEY': '', 
+    'MAILGUN_SENDER_DOMAIN': '',
+}
+"""

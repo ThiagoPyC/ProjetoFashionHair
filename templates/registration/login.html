@@ -1,4 +1,7 @@
 {% load static %}
+{% load i18n %}
+{% load account socialaccount %}
+{% get_providers as socialaccount_providers %}
 <!doctype html>
 <html lang="py-br">
     <head>
@@ -25,17 +28,19 @@
                 <form method="post" action="{% url 'pages:login' %}">
                     {% csrf_token %}
                     <div class="textbox">
-                        <input type="fas da-user" class="form-control" id="floatingInput" placeholder="Username" {{ form.username }}
+                        <input type="fas da-user" class="form-control" id="floatingInput" placeholder="Usuário" {{ form.username }}
                     </div>
                     <div class="textbox">
                         <input type="password" class="form-control" id="floatingPassword" placeholder="Senha" name = "password" value='' {{ form.password }}
                     </div>
                     <button class="w-100 btn btn-lg btn-primary" type="submit">Entrar</button>
                     <a href="{% url 'pages:cadastrar' %}" class="u-align-center u-custom-font u-text u-text-2"> Não tem uma Conta? Clique aqui!</a>
-                    <p class="mt-5 mb-3 text-muted">&copy; Fashion Hair</p>
+                    <a class="button secondaryAction" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
                 </form>
                 {{ form.non_field_errors }}
+                <p class="mt-5 mb-3 text-muted">&copy; Fashion Hair</p>
             </div>
+              
         {% endblock %}
     </body>
 </html>

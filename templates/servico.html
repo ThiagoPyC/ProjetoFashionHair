@@ -66,6 +66,7 @@
     </span>
       {% block container %}
       <a href="{% url 'pages:indexCreate' %}"class="btn btn-success" href="create"> <span class="glyphicon glyphicon-add"></span>Minha Agenda</a>
+      <a class="btn btn-success" href = "{% url 'pages:dashboard' %}"> <span class="glyphicon glyphicon-add"></span>Calendário</a>
       <br/>
       <br/>
       <div class="table-responsive">
@@ -81,7 +82,7 @@
               <tbody>
               {% for servico in servicos %}
                   <tr>
-                      <td>{{ servico.id }}</td>
+                      <td>{{'' }}</td>
                       <td>{{ servico.nome }}</td>
                       <td>{{ servico.valor }}</td>
                       <td class="td-actions" >

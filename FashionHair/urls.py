@@ -24,3 +24,5 @@ urlpatterns = [
     # local
     path("", include('pages.urls', namespace='pages')),
 ]
+
+admin.site.site_header = 'Administração Funcionário'

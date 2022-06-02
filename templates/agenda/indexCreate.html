@@ -65,26 +65,26 @@
       {% block container %}
           <a class="btn btn-success" href="create"> <span class="glyphicon glyphicon-add"></span>Novo Agendamento</a>
           <a class="btn btn-success" href="../servico"> <span class="glyphicon glyphicon-add"></span>Serviços</a>
+          <a class="btn btn-success" href = "{% url 'pages:dashboard' %}"> <span class="glyphicon glyphicon-add"></span>Calendário</a>
           <br/>
           <br/>
           <div class="table-responsive">
               <table class="table">
                   <thead>
                   <tr>
-                      <th class="text-center"></th>
+                      <th>Status </th>
                       <th>Data</th>
                       <th>Hora</th>
                       <th>Cabeleireiro</th>
                       <th>Serviços</th>
-                      <!-- <th>Produtos</th> -->
-                    <th>Opções</th>
+                    <th></th>
                   </tr>
                   </thead>
                   <tbody>
                   {% for agenda in agendamentos %}
                       {% if agenda.clientes.id == user.cliente.id or agenda.cabeleireiros.id == user.cabeleireiro.id %}
                           <tr>
-                              <td> {{''}}</td>  
+                              <td>{{ agenda.status }}</td>  
                               <td>{{ agenda.data }}</td>
                               <td>{{ agenda.hora_inicio }}</td>
                               <td>{{ agenda.cabeleireiros.nome}}</td>
@@ -95,22 +95,10 @@
                               {% if agenda.cabeleireiros.id == user.cabeleireiro.id %}
                                   <td>{{ agenda.clientes.nome }}</td>
                               {% endif %}
-                              <td class="td-actions" >
-      {#                            <a href="edit/{{ agenda.id }}" type="button" rel="tooltip" title="Editar" class="btn btn-success btn-link btn-sm">#}
-      {#                                <i class="fa fa-edit"></i>#}
-      {#                            </a>#}
-                                  <button type="button"
-                                          rel="tooltip"
-                                          class="btn btn-danger btn-sm"
-                                          data-toggle="modal"
-                                          data-target="#deleteModal"
-                                          data-pk="{{ agenda.id }}"
-                                          data-name="{{ agenda.data }}">
-                                      <i class="fa fa-times">Excluir</i>
-                                  </button>
-                                  {#                            <a href="deletar/{{ agenda.id }}" type="button" rel="tooltip" title="Remover" class="btn btn-danger btn-link btn-sm">#}
-                                  {#                                <i class="fa fa-times"></i>#}
-                                  {#                            </a>#}
+                              <td class="td-actions" >                             
+                                <a href="deletar/{{ agenda.id }}" type="button" rel="tooltip" title="Remover" class="btn btn-danger btn-sm">
+                                  <i class="fa fa-times">Cancelar</i>
+                                </a>
                               </td>
                           </tr>
                       {% endif %}
@@ -144,19 +132,8 @@
           </div>
       {% endblock %}
 
-      {% block javascripts %}
-      <script>
-          $('#editModal').on('show.bs.modal', function (event) {
-              var button = $(event.relatedTarget);
-              var pk = button.data('pk');
-              var name = button.data('name');
-              var modal = $(this);
-  
-              $('#editModalLabel').html(name);
-              $('#formEdit').attr("action", "/agenda/edit/" + pk);
-          })
-      </script>
-      <script>
+{% block javascripts %}
+     <script>
           $('#deleteModal').on('show.bs.modal', function (event) {
               var button = $(event.relatedTarget);
               var pk = button.data('pk');
@@ -164,28 +141,7 @@
   
               var modal = $(this);
               $('#deleteModalLabel').html(name);
-              $('#formDelete').attr("action", "/agenda/deletar/" + pk);
+              $('#formDelete').attr("action", "agenda/deletar/" + pk);
           })
       </script>
-      <script>
-          $('#detalheModal').on('show.bs.modal', function (event) {
-              var button = $(event.relatedTarget);
-              var pk = button.data('pk');
-              var name = button.data('name');
-              var date = button.data('date');
-              var cab = button.data('cab');
-              var prod = button.data('prod');
-              var hor = button.data('hor');
-              var serv = button.data('serv');
-  
-              var modal = $(this);
-              $('#detalheModalLabel').html(name);
-              $('#detalheModalLabelData').html(date);
-              $('#detalheModalLabelCab').html(cab);
-              $('#detalheModalLabelServ').html(serv);
-              $('#detalheModalLabelHor').html(hor);
-              $('#detalheModalLabelProd').html(prod);
-  
-          })
-      </script>
-  {% endblock %}
+{% endblock %}
