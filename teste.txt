@@ -1,4 +1,0 @@
-Sempre quando mudar de um ctrl+s para salvar
-Agora preciso confirmar essas alterações para apararecer la no github; segue o passo
-vc clica no mais para salvar as modificações
-Agora vc clica no V para confirmar e digita qual alteração vc realizou
